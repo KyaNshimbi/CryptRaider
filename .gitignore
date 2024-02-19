@@ -74,3 +74,6 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 
 Content/*
+
+.vscode/compileCommands_CryptRaider/*
+.vscode/compileCommands_Default/*
