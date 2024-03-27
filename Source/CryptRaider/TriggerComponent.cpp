@@ -20,6 +20,12 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
     AActor* AcceptableActor{GetAcceptableActor()};
     if(AcceptableActor)
     {
+        UPrimitiveComponent* Component{Cast<UPrimitiveComponent>(AcceptableActor->GetRootComponent())};
+        if(Component)
+        {
+            Component->SetSimulatePhysics(false);
+        }
+        Component->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
         Mover->SetShouldMove(true);
     }
     else
@@ -39,7 +45,7 @@ AActor *UTriggerComponent::GetAcceptableActor() const
     GetOverlappingActors(Actors);
     for(int32 it{0}; it < Actors.Num(); ++it)
     {
-        if(Actors[it]->ActorHasTag(AcceptableActorTag))
+        if(Actors[it]->ActorHasTag(AcceptableActorTag) && !Actors[it]->ActorHasTag("Grabbed"))
         {
             return Actors[it];
         }
